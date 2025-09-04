@@ -28,6 +28,7 @@ struct ContentView: View {
     var selectedHours: Int { loopingHours[selectedHoursIndex] }
     var selectedSeconds: Int { loopingSeconds[selectedSecondsIndex] }
     var selectedMinutes: Int { loopingMinutes[selectedMinutesIndex] }
+    var isTimeZero: Bool { selectedHours == 0 && selectedMinutes == 0 && selectedSeconds == 0 }
 
     var body: some View {
         ZStack {
@@ -121,8 +122,9 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .frame(width: 100, height: 70)
                     }
-                    .background(Color.green)
+                    .background(isTimeZero ? Color.gray : Color.green)
                     .cornerRadius(22)
+                    .disabled(isTimeZero)
                 }
                 Spacer()
             }

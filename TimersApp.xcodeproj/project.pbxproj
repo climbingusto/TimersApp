@@ -10,6 +10,7 @@
 		6B4204752E69A09000932356 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = 6B4204742E69A09000932356 /* RealityKitContent */; };
 		6BD3F5362E69A32F00239478 /* TimesUp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3F5352E69A32F00239478 /* TimesUp.wav */; };
 		6BD3F5382E69A33600239478 /* Pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3F5372E69A33600239478 /* Pop.wav */; };
+		6BD3F53A2E69AA6400239478 /* error.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3F5392E69AA6400239478 /* error.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -17,6 +18,7 @@
 		6B4204732E69A09000932356 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		6BD3F5352E69A32F00239478 /* TimesUp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = TimesUp.wav; sourceTree = "<group>"; };
 		6BD3F5372E69A33600239478 /* Pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Pop.wav; sourceTree = "<group>"; };
+		6BD3F5392E69AA6400239478 /* error.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = error.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -56,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				6BD3F5372E69A33600239478 /* Pop.wav */,
+				6BD3F5392E69AA6400239478 /* error.wav */,
 				6BD3F5352E69A32F00239478 /* TimesUp.wav */,
 				6B4204712E69A09000932356 /* TimersApp */,
 				6B4204722E69A09000932356 /* Packages */,
@@ -146,6 +149,7 @@
 			files = (
 				6BD3F5382E69A33600239478 /* Pop.wav in Resources */,
 				6BD3F5362E69A32F00239478 /* TimesUp.wav in Resources */,
+				6BD3F53A2E69AA6400239478 /* error.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

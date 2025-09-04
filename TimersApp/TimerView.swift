@@ -52,17 +52,19 @@ struct TimerView: View {
             } else {
                 Text(timeString)
                     .font(.system(size: 48, weight: .bold, design: .monospaced))
-                if !timerActive {
+                if !timerActive && !isTimeZero {
                     Button("Start") {
+                        guard !isTimeZero else { return }
                         showTimesUp = false
                         playStartSound()
                         startTimer()
                     }
                     .font(.title)
                     .padding()
-                    .background(Color.green)
+                    .background(isTimeZero ? Color.gray : Color.green)
                     .foregroundColor(.white)
                     .clipShape(Capsule())
+                    .disabled(isTimeZero)
                 } else if timerPaused {
                     Button("Resume") {
                         showTimesUp = false
@@ -126,6 +128,10 @@ struct TimerView: View {
         let minutes = (timeRemaining % 3600) / 60
         let seconds = timeRemaining % 60
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
+    private var isTimeZero: Bool {
+        timeRemaining == 0
     }
     
     private func startTimer() {
