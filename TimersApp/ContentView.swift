@@ -8,6 +8,7 @@
 import SwiftUI
 import RealityKit
 import RealityKitContent
+import AVFoundation
 
 let loopingCount = 50
 let secondsRange = Array(0..<60)
@@ -107,30 +108,57 @@ struct ContentView: View {
 
                 // Buttons Row
                 HStack {
-                    Button(action: {
-                        // Start timer (open timerWindow, pass values if needed)
-                        print("Starting timer with: \(selectedHours)h \(selectedMinutes)m \(selectedSeconds)s")
-                        let totalSeconds = (selectedHours * 3600) + (selectedMinutes * 60) + selectedSeconds
-                        if totalSeconds > 0 {
-                            timerSettings.initialTime = totalSeconds
+                    ZStack {
+                        Button(action: {
+                            // Start timer (open timerWindow, pass values if needed)
+                            print("Starting timer with: \(selectedHours)h \(selectedMinutes)m \(selectedSeconds)s")
+                            let totalSeconds = (selectedHours * 3600) + (selectedMinutes * 60) + selectedSeconds
+                            if totalSeconds > 0 {
+                                timerSettings.initialTime = totalSeconds
+                            }
+                            timerSettings.autoStart = true
+                            openWindow(id: "timerWindow")
+                        }) {
+                            Text("Start")
+                                .font(.system(size: 22, weight: .medium, design: .monospaced))
+                                .foregroundColor(.white)
+                                .frame(width: 100, height: 70)
                         }
-                        timerSettings.autoStart = true
-                        openWindow(id: "timerWindow")
-                    }) {
-                        Text("Start")
-                            .font(.system(size: 22, weight: .medium, design: .monospaced))
-                            .foregroundColor(.white)
-                            .frame(width: 100, height: 70)
+                        .background(isTimeZero ? Color.gray : Color.green)
+                        .cornerRadius(22)
+                        .disabled(isTimeZero)
+                        // Overlay a transparent tap area ONLY when disabled
+                        if isTimeZero {
+                            Rectangle()
+                                .foregroundColor(.clear)
+                                .frame(width: 100, height: 70)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    playErrorSound()
+                                }
+                        }
                     }
-                    .background(isTimeZero ? Color.gray : Color.green)
-                    .cornerRadius(22)
-                    .disabled(isTimeZero)
                 }
                 Spacer()
             }
             .padding(.horizontal, 16)
             .environment(\.layoutDirection, .rightToLeft)
         }
+    }
+}
+
+var errorPlayer: AVAudioPlayer?
+
+func playErrorSound() {
+    guard let url = Bundle.main.url(forResource: "error", withExtension: "wav") else {
+        print("Could not find error.wav in bundle")
+        return
+    }
+    do {
+        errorPlayer = try AVAudioPlayer(contentsOf: url)
+        errorPlayer?.play()
+    } catch {
+        print("Failed to play error.wav: \(error)")
     }
 }
 
