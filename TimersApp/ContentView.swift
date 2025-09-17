@@ -125,14 +125,14 @@ struct ContentView: View {
                                 .frame(width: 100, height: 70)
                         }
                         .background(isTimeZero ? Color.gray : Color.green)
-                        .cornerRadius(22)
+                        .cornerRadius(50)
                         .disabled(isTimeZero)
                         // Overlay a transparent tap area ONLY when disabled
                         if isTimeZero {
-                            Rectangle()
+                            Capsule()
                                 .foregroundColor(.clear)
                                 .frame(width: 100, height: 70)
-                                .contentShape(Rectangle())
+                                .contentShape(Capsule())
                                 .onTapGesture {
                                     playErrorSound()
                                 }

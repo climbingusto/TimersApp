@@ -1,6 +1,33 @@
 import SwiftUI
 import AVFoundation
 
+struct CapsuleHighlightButtonStyle: ButtonStyle {
+    var color: Color
+    func makeBody(configuration: Configuration) -> some View {
+        CapsuleHighlightButton(color: color, configuration: configuration)
+    }
+
+    private struct CapsuleHighlightButton: View {
+        let color: Color
+        let configuration: Configuration
+        @FocusState private var isFocused: Bool
+        var isActive: Bool { isFocused }
+
+        var body: some View {
+            configuration.label
+                .padding(.horizontal, 32).padding(.vertical, 18)
+                .background(
+                    (configuration.isPressed ? color.opacity(0.7) : color)
+                        .brightness(isActive ? 0.2 : 0)
+                )
+                .foregroundColor(.white)
+                .clipShape(Capsule())
+                .focusable()
+                .focused($isFocused)
+        }
+    }
+}
+
 struct TimerView: View {
     @EnvironmentObject var timerSettings: TimerSettings
 
@@ -24,7 +51,7 @@ struct TimerView: View {
     var body: some View {
         VStack(spacing: 32) {
             Button(action: {
-                newTitleText = title
+                newTitleText = ""
                 editingTitle = true
             }) {
                 Text(title)
@@ -45,10 +72,7 @@ struct TimerView: View {
                     repeatTimer()
                 }
                 .font(.title)
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
+                .buttonStyle(CapsuleHighlightButtonStyle(color: .blue))
             } else {
                 Text(timeString)
                     .font(.system(size: 48, weight: .bold, design: .monospaced))
@@ -60,10 +84,7 @@ struct TimerView: View {
                         startTimer()
                     }
                     .font(.title)
-                    .padding()
-                    .background(isTimeZero ? Color.gray : Color.green)
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
+                    .buttonStyle(CapsuleHighlightButtonStyle(color: isTimeZero ? Color.gray : Color.green))
                     .disabled(isTimeZero)
                 } else if timerPaused {
                     Button("Resume") {
@@ -71,19 +92,13 @@ struct TimerView: View {
                         resumeTimer()
                     }
                     .font(.title)
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
+                    .buttonStyle(CapsuleHighlightButtonStyle(color: .green))
                 } else {
                     Button("Stop") {
                         pauseTimer()
                     }
                     .font(.title)
-                    .padding()
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
+                    .buttonStyle(CapsuleHighlightButtonStyle(color: .red))
                 }
             }
         }

@@ -22,6 +22,6 @@ struct TimerAppApp: App {
                 .environmentObject(timerSettings)
                 .environment(\.font, .system(size: 17, design: .monospaced))
         }
+        .defaultSize(width: 550, height: 400)
     }
 }
-
